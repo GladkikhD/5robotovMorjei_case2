@@ -1,10 +1,4 @@
 from model import Model
-from asyncio.windows_events import NULL
-from collections import deque
-from msilib import sequence
-from typing import Tuple
-import numpy as np
-from heapq import heappop, heappush
 import gym
 from pogema.animation import AnimationMonitor
 from pogema import GridConfig
