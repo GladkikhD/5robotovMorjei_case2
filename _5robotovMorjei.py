@@ -1,6 +1,3 @@
-from ipaddress import NetmaskValueError
-
-
 class Net:
     def __init__(self):
         pass
@@ -11,7 +8,8 @@ class Net:
     def train():
         pass
 
-    def findWay(x, y, destx, desty):
-        pass
+#0 - на месте, 1 - вверх, 2 - вниз, 3 - влево, 4 - вправо
+    def findWay(self, xy, destxy):
+        return 0
     
 
