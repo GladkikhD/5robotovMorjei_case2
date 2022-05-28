@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from collections import deque
 from msilib import sequence
 from typing import Tuple
 import numpy as np
@@ -66,6 +68,7 @@ class AStar:
 
 class Model:
     def __init__(self):
+        self.lastAction = deque()
         self.agents = None
         self.actions = {tuple(GridConfig().MOVES[i]): i for i in
                         range(len(GridConfig().MOVES))}  # make a dictionary to translate coordinates of actions into id
@@ -82,6 +85,20 @@ class Model:
             self.agents[k].compute_shortest_path(start=positions_xy[k], goal=targets_xy[k])
             next_node = self.agents[k].get_next_node()
             actions.append(self.actions[(next_node[0] - positions_xy[k][0], next_node[1] - positions_xy[k][1])])
+        #self.prevAction = self.lastAction
+        #self.lastAction = actions[len(actions) - 1]
+        self.lastAction.append(actions)
+        if len(self.lastAction) > 4:
+            self.lastAction.popleft()
+        if len(self.lastAction) > 3 and actions == self.lastAction[1] and self.lastAction[1] == self.lastAction[3]:
+            n = 0
+            for i in range(len(actions)):
+                if actions[i] != 0:
+                    if n % 2 != 0:
+                        actions[i] = 0
+                    n += 1
+            self.lastAction.pop()
+            self.lastAction.append(actions)
         return actions
 
 
@@ -106,11 +123,12 @@ def main():
     steps = 0
     while not all(done):
         # Используем AStar
-        obs, reward, done, info = env.step(solver.act(obs, done,
-                                                      env.get_agents_xy_relative(),
-                                                      env.get_targets_xy_relative()))
+        varToPrint = solver.act(obs, done,
+            env.get_agents_xy_relative(),
+            env.get_targets_xy_relative())
+        obs, reward, done, info = env.step(varToPrint)
         steps += 1
-        print(steps, np.sum(done))
+        print(steps, varToPrint)
 
     # сохраняем анимацию и рисуем ее
     env.save_animation("render.svg", egocentric_idx=None)
