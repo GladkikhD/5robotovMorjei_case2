@@ -4,9 +4,9 @@
 
 ### Tasks:
 
-|Name      |Task                                                    |
-|----------|--------------------------------------------------------|
-|1. Alice  |ЫЫЫ                                                     |
-|2. Dima   |ЫЫ                                                      |
-|3. Egor   |Ы                                                       |
-|4. Nikita |Take over ```act``` method signature                    |
+|Name      |Task                                                    |Status|
+|----------|--------------------------------------------------------|------|
+|1. Alice  |ЫЫЫ                                                     |Undone|
+|2. Dima   |ЫЫ                                                      |Undone|
+|3. Egor   |Ы                                                       |Done  |
+|4. Nikita |Take over ```act``` method signature                    |Undone|
