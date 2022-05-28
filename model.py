@@ -39,7 +39,8 @@ class Model:
         for i in range(len(actions)):
             if (actions[i] != 0 and actions[i] == self.lastAction[1][i] and
             self.lastAction[1][i] == self.lastAction[3][i] and
-            self.lastAction[0][i] == self.lastAction[2][i]):
+            self.lastAction[0][i] == self.lastAction[2][i] and
+            (self.lastAction[1][i] + self.lastAction[0][i] == 3 or self.lastAction[1][i] + self.lastAction[0][i] == 7)):
                 if n % 2 != 0:
                     actions[i] = 0
                 n += 1
