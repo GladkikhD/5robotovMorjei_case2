@@ -88,17 +88,27 @@ class Model:
         #self.prevAction = self.lastAction
         #self.lastAction = actions[len(actions) - 1]
         self.lastAction.append(actions)
-        if len(self.lastAction) > 4:
+        #if len(self.lastAction) > 3 and actions == self.lastAction[1] and self.lastAction[1] == self.lastAction[3]:
+        #    n = 0
+        #    for i in range(len(actions)):
+        #        if actions[i] != 0:
+        #            if n % 2 != 0:
+        #                actions[i] = 0
+        #            n += 1
+        if len(self.lastAction) <= 4:
+            return actions
+        else:
             self.lastAction.popleft()
-        if len(self.lastAction) > 3 and actions == self.lastAction[1] and self.lastAction[1] == self.lastAction[3]:
-            n = 0
-            for i in range(len(actions)):
-                if actions[i] != 0:
-                    if n % 2 != 0:
-                        actions[i] = 0
-                    n += 1
-            self.lastAction.pop()
-            self.lastAction.append(actions)
+        n = 0
+        for i in range(len(actions)):
+            if (actions[i] != 0 and actions[i] == self.lastAction[1][i] and
+            self.lastAction[1][i] == self.lastAction[3][i] and
+            self.lastAction[0][i] == self.lastAction[2][i]):
+                if n % 2 != 0:
+                    actions[i] = 0
+                n += 1
+        self.lastAction.pop()
+        self.lastAction.append(actions)
         return actions
 
 
@@ -106,7 +116,7 @@ def main():
     # Define random configuration
     grid_config = GridConfig(num_agents=32,  # количество агентов на карте
                              size=64,  # размеры карты
-                             density=0.3,  # плотность препятствий
+                             density=0.33,  # плотность препятствий
                              seed=1,  # сид генерации задания
                              max_episode_steps=1024,  # максимальная длина эпизода
                              obs_radius=5,  # радиус обзора
