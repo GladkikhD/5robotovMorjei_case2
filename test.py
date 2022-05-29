@@ -1,19 +1,15 @@
 from model import Model
-from asyncio.windows_events import NULL
-from collections import deque
-from msilib import sequence
-from typing import Tuple
-import numpy as np
-from heapq import heappop, heappush
 import gym
 from pogema.animation import AnimationMonitor
 from pogema import GridConfig
 
 def main():
+    _size = 20
+    _num_agents = 10
     _density = 0.2
     # Define random configuration
-    grid_config = GridConfig(num_agents=32,  # количество агентов на карте
-                             size=64,  # размеры карты
+    grid_config = GridConfig(num_agents=_num_agents,  # количество агентов на карте
+                             size=_size,  # размеры карты
                              density=_density,  # плотность препятствий
                              seed=1,  # сид генерации задания
                              max_episode_steps=1024,  # максимальная длина эпизода
@@ -39,7 +35,7 @@ def main():
         print(steps, varToPrint)
 
     # сохраняем анимацию и рисуем ее
-    env.save_animation(f"render/render_{_density}.svg", egocentric_idx=None)
+    env.save_animation(f"render/render_{_size}_{_num_agents}_{_density}.svg", egocentric_idx=None)
 
 
 if __name__ == '__main__':
